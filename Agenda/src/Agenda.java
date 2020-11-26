@@ -5,8 +5,8 @@ public class Agenda {
 	
 	public static void inicializarMatriz(String mContacto[][]) {
 		
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < mContacto.length; i++) {
+			for (int j = 0; j < mContacto[i].length; j++) {
 				
 				mContacto[i][j] = "_";
 					
@@ -39,8 +39,24 @@ public class Agenda {
 		
 	}
 	
+	public static int localizarVacio(int joker, int tam, String mContacto[][]) {
+		
+		for (int joker = 0; joker <= tam; joker++ ) {
+			if (mContacto[joker][0].equalsIgnoreCase("_")) {
+				
+				return joker;
+				
+			}	
+		}
+	}
 	
-	
+	public static int modContacto() {
+		
+		
+		
+		
+		
+	}
 	
 
 	public static void main(String[] args) {
@@ -49,15 +65,13 @@ public class Agenda {
 		
 		Scanner leer = new Scanner(System.in);
 		
-		int tam = 10, boton = 0;
+		int tam = 10, boton = 0, joker = 0;
+		
+		boolean eliminar = false; 
 		
 		String mContacto[][] = new String[tam][2]; 
 		
 		inicializarMatriz(mContacto);
-		
-		
-		
-		// Inicializar menu
 		
 		//Buscar Contacto
 		
@@ -78,18 +92,57 @@ public class Agenda {
 			
 			switch (boton) {
 			case 1:
+				
+				joker = localizarVacio(joker, tam, mContacto);
+				
+				System.out.println("Introduce el nombre del contacto");
+				mContacto[joker][0] = leer.next();
+				System.out.println("Introduce el telefono del contacto");
+				mContacto[joker][1] = leer.next();
+				
 				break;
 				
 			case 2:
+				
+				eliminar = true;
+				
+				System.out.println("Introduce el nombre o telefono de el contacto que quieres editar");
+				
+				
+				modContacto();
+				
+				System.out.println("Introduce el nuevo nombre del contacto");
+				mContacto[joker][0] = leer.next();
+				System.out.println("Introduce el telefono del contacto");
+				mContacto[joker][1] = leer.next();
+				
+				
+				
 				break;
 				
 			case 3:
+				
+				
+				
+				
+				
 				break;
 				
 			case 4:
+				
+				
+				
+				
+				
+				
 				break;
 				
 			case 5:
+				
+				
+				
+				
+				
 				break;
 				
 			default:
