@@ -39,24 +39,52 @@ public class Agenda {
 		
 	}
 	
-	public static int localizarVacio(int joker, int tam, String mContacto[][]) {
+	public static int localizarVacio(int tam, String mContacto[][]) {
 		
-		for (int joker = 0; joker <= tam; joker++ ) {
-			if (mContacto[joker][0].equalsIgnoreCase("_")) {
+		for (int i = 0; i <= tam; i++ ) {
+			if (mContacto[i][0].equals("_")) {
 				
-				return joker;
+				return i;
 				
 			}	
 		}
+		return -1;
 	}
 	
-	public static int modContacto() {
-		
-		
-		
-		
-		
+	public static int modContacto(String parametro, String mContacto[][], boolean eliminar ) {
+		// Esta funcion realiza Buscar, Editar y Eliminar.
+		// Falla en algo no estoy seguro en que.
+		for (int i = 0; i < mContacto.length; i++) {
+			for (int j = 0; j < mContacto[i].length; j++) {
+				
+				if (mContacto[i][j].equals(parametro)) {
+					
+					if (eliminar = true) {
+						
+						mContacto[i][0]="_";
+						mContacto[i][1]="_";
+					}
+					return i;
+				}		
+			}
+		}
+		return -1;
 	}
+	
+	public static void mostrarLista(String mContacto[][]) {
+		
+		for (int i = 0; i < mContacto.length; i++) {
+			for (int j = 0; j < mContacto[i].length; j++) {
+				if (!mContacto[i][j].equals("_"))
+				System.out.print(mContacto[i][j]);
+					
+			}
+			System.out.println();
+		}
+			
+	}
+	
+	
 	
 
 	public static void main(String[] args) {
@@ -65,9 +93,11 @@ public class Agenda {
 		
 		Scanner leer = new Scanner(System.in);
 		
-		int tam = 10, boton = 0, joker = 0;
+		int tam = 10, boton = 0, buscar = 0;
 		
 		boolean eliminar = false; 
+		
+		String parametro;
 		
 		String mContacto[][] = new String[tam][2]; 
 		
@@ -85,20 +115,15 @@ public class Agenda {
 			boton = leer.nextInt();
 			
 			
-			
-			
-			
-			
-			
 			switch (boton) {
 			case 1:
 				
-				joker = localizarVacio(joker, tam, mContacto);
+				buscar = localizarVacio(tam, mContacto);
 				
 				System.out.println("Introduce el nombre del contacto");
-				mContacto[joker][0] = leer.next();
+				mContacto[buscar][0] = leer.next();
 				System.out.println("Introduce el telefono del contacto");
-				mContacto[joker][1] = leer.next();
+				mContacto[buscar][1] = leer.next();
 				
 				break;
 				
@@ -107,14 +132,15 @@ public class Agenda {
 				eliminar = true;
 				
 				System.out.println("Introduce el nombre o telefono de el contacto que quieres editar");
+				parametro = leer.next();
 				
 				
-				modContacto();
+				buscar = modContacto(parametro, mContacto, eliminar);
 				
 				System.out.println("Introduce el nuevo nombre del contacto");
-				mContacto[joker][0] = leer.next();
+				mContacto[buscar][0] = leer.next();
 				System.out.println("Introduce el telefono del contacto");
-				mContacto[joker][1] = leer.next();
+				mContacto[buscar][1] = leer.next();
 				
 				
 				
@@ -122,44 +148,43 @@ public class Agenda {
 				
 			case 3:
 				
+				eliminar = true;
+				
+				System.out.println("Introduce el nombre o telefono de el contacto que quieres eliminar");
+				parametro = leer.next();
 				
 				
-				
+				buscar = modContacto(parametro, mContacto, eliminar);
 				
 				break;
 				
 			case 4:
 				
-				
-				
-				
-				
+				mostrarLista(mContacto);
 				
 				break;
 				
 			case 5:
 				
+				eliminar = false;
 				
+				System.out.println("Introduce el nombre o telefono de el contacto que estas buscando");
+				parametro = leer.next();
 				
+				buscar = modContacto(parametro, mContacto, eliminar);
 				
-				
+				System.out.println("Su nombre es " + mContacto[buscar][0]);
+				System.out.println("Su telefono es " + mContacto[buscar][1]);
 				break;
 				
 			default:
 				boton = 0;
 			break;
 			
-			
-			
 			}
-			
-			
-			
 			
 		}
 		while(boton != 0);
-		
-		
 	}
 
 }
